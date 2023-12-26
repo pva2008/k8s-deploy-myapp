@@ -8,9 +8,17 @@ pipeline {
     stages {
         stage('1-Build') {
             steps {
-                echo "Start of Stage Build..."
-                echo "Building......."
-                echo "End of Stage Build..."
+                // echo "Start of Stage Build..."
+                // echo "Building......."
+                // echo "End of Stage Build..."
+                sh "echo "---------------------------------------------------" "
+                sh " ls -la"
+                sh "ssh jenkins@192.168.65.210"
+                sh "echo "---------------------------------------------------" "
+                sh "ls -la"
+                sh "exit"
+
+
             }
         }
         // stage('2-Test') {
