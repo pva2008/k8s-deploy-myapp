@@ -14,6 +14,8 @@ pipeline {
                 echo "---------------------------------------------------"
                 sh " ls -la"
                 sh "ssh jenkins@192.168.65.210  ls -a "
+                sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkinse"
+                sh "ssh jenkins@192.168.65.210 cat Dockerfile"
                 echo "---------------------------------------------------"
                 //sh "ls -la"
                 sh "exit"
