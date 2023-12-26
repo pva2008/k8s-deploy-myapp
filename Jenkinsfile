@@ -13,9 +13,9 @@ pipeline {
                 // echo "End of Stage Build..."
                 echo "---------------------------------------------------"
                 sh " ls -la"
-                sh "ssh jenkins@192.168.65.210"
+                sh "ssh jenkins@192.168.65.210 "ls -la""
                 echo "---------------------------------------------------"
-                sh "ls -la"
+                //sh "ls -la"
                 sh "exit"
 
 
