@@ -16,18 +16,25 @@ pipeline {
                 sh "ssh jenkins@192.168.65.210  ls -a "
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
                 sh "ssh jenkins@192.168.65.210 cat Dockerfile"
-                echo "---------------------------------------------------"
-                sh "ssh jenkins@192.168.65.210 rm Dockerfile"
-                sh "ssh jenkins@192.168.65.210  ls -a "
-                //sh "ls -la"
-                sh "exit"
+                sh "ssh jenkins@192.168.65.210 docker build -t pva2008/k8sphp:latest ."
+                sh "ssh jenkins@192.168.65.210 docker push pva2008/k8sphp:latest"
+                
+
 
 
             }
         }
-        // stage('2-Test') {
+        stage('4-Clean') {
+            steps {
+                echo "---------------------------------------------------"
+                sh "ssh jenkins@192.168.65.210 rm Dockerfile"
+                sh "ssh jenkins@192.168.65.210  ls -a "
+                sh "exit"
+            }
+        }
+        // stage('4-Clean') {
         //     steps {
-        //         echo "Start of Stage Test..."
+        //         echo "Clean"
         //         echo "Testing......."
         //         echo "Privet ${PROJECT_NAME}"
         //         echo "Owner is ${OWNER_NAME}"
