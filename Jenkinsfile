@@ -28,7 +28,7 @@ pipeline {
         stage('4-Clean') {
             steps {
                 echo "---------------------------------------------------"
-                sh "ssh jenkins@192.168.65.210 rm Dockerfile index.php "
+                //sh "ssh jenkins@192.168.65.210 rm Dockerfile index.php "
                 sh "ssh jenkins@192.168.65.210  ls -a "
                 sh "exit"
             }
