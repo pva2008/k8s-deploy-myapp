@@ -1,0 +1,6 @@
+# Default Values for my Helm Chart
+
+container:
+  image: pva2008/k8sphp:latest
+
+replicaCount: 4
