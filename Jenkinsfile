@@ -25,7 +25,8 @@ pipeline {
                 sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./dockerbuild.sh  jenkins@192.168.65.210:/home/jenkins"
-                sh "ssh jenkins@192.168.65.210  chmod +x ./dockerbuild.sh"
+                sh "ssh jenkins@192.168.65.210 sudo chmod +x ./dockerbuild.sh"
+                sh "ssh jenkins@192.168.65.210 sudo chown jenkins ./dockerbuild.sh"
                // sh "ssh jenkins@192.168.65.210 cat Dockerfile"
                
                 sh """
