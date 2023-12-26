@@ -14,10 +14,11 @@ pipeline {
                 echo "---------------------------------------------------"
                 sh " ls -la"
                 sh "ssh jenkins@192.168.65.210  ls -a "
+                sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
                 sh "ssh jenkins@192.168.65.210 cat Dockerfile"
                 sh "ssh jenkins@192.168.65.210 sudo docker build -t pva2008/k8sphp:latest ."
-                sh "ssh jenkins@192.168.65.210 sudo docker push pva2008/k8sphp:latest"
+                // sh "ssh jenkins@192.168.65.210 sudo docker push pva2008/k8sphp:latest"
                 
 
 
@@ -27,7 +28,7 @@ pipeline {
         stage('4-Clean') {
             steps {
                 echo "---------------------------------------------------"
-                sh "ssh jenkins@192.168.65.210 rm Dockerfile"
+                sh "ssh jenkins@192.168.65.210 rm Dockerfile index.php "
                 sh "ssh jenkins@192.168.65.210  ls -a "
                 sh "exit"
             }

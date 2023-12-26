@@ -1,4 +1,4 @@
-FROM amd64/amazonlinux
+FROM amd64/amazonlinux:latest
 
 RUN yum -y update
 RUN yum -y install httpd
