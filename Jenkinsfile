@@ -21,22 +21,16 @@ pipeline {
                 // sh "ssh jenkins@192.168.65.210 export HTTPS_PROXY=http://172.16.10.29:8080/ "
                 // sh "ssh jenkins@192.168.65.210  export NO_PROXY=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 "
                 //  sh " printenv"
-            //  sh "ssh jenkins@192.168.65.210  ls -a "
+               //  sh "ssh jenkins@192.168.65.210  ls -a "
                 sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
+                sh "scp ./dockerbuild.sh  jenkins@192.168.65.210:/home/jenkins"
                // sh "ssh jenkins@192.168.65.210 cat Dockerfile"
-               sh "ssh jenkins@192.168.65.210 sudo -E docker login"
+               
                 sh """
-                ssh jenkins@192.168.65.210 sudo -E docker build \
---build-arg http_proxy=http://172.16.10.29:8080/ \
---build-arg https_proxy=http://172.16.10.29:8080/ \
---build-arg no_proxy=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 \
---build-arg HTTP_PROXY=http://172.16.10.29:8080/ \
---build-arg HTTPS_PROXY=http://172.16.10.29:8080/ \
---build-arg NO_PROXY=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 \
--t pva2008/k8sphp:latest .
+                ssh jenkins@192.168.65.210 sudo  ./dockerbuild.sh
                 """
-                 sh "ssh jenkins@192.168.65.210 sudo -E docker push pva2008/k8sphp:latest"
+                //  sh "ssh jenkins@192.168.65.210 sudo -E docker push pva2008/k8sphp:latest"
                 
 
 
@@ -46,7 +40,7 @@ pipeline {
         stage('4-Clean') {
             steps {
                 echo "---------------------------------------------------"
-                //sh "ssh jenkins@192.168.65.210 rm Dockerfile index.php "
+                //sh "ssh jenkins@192.168.65.210 rm Dockerfile index.php"
                 sh "ssh jenkins@192.168.65.210  ls -a "
                 sh "exit"
             }
