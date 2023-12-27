@@ -6,42 +6,45 @@ pipeline {
     }
 
     stages {
-        stage('1-Build') {
+        stage('1-Prepare') {
             steps {
-                // echo "Start of Stage Build..."
-                // echo "Building......."
-                // echo "End of Stage Build..."
-                echo "---------------------------------------------------"
-                // sh " ls -la"
-                // sh " printenv"
+                echo "-----------------------Prepare----------------------------"
                 // sh "ssh jenkins@192.168.65.210 export http_proxy=http://172.16.10.29:8080/" 
                 // sh "ssh jenkins@192.168.65.210 export https_proxy=http://172.16.10.29:8080/"
                 // sh "ssh jenkins@192.168.65.210 export no_proxy=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 "
                 // sh "ssh jenkins@192.168.65.210 export HTTP_PROXY=http://172.16.10.29:8080/ "
                 // sh "ssh jenkins@192.168.65.210 export HTTPS_PROXY=http://172.16.10.29:8080/ "
                 // sh "ssh jenkins@192.168.65.210 export NO_PROXY=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 "
-                //  sh " printenv"
-               //  sh "ssh jenkins@192.168.65.210  ls -a "
+
+                sh "scp ./chart-vasili  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./dockerbuild.sh  jenkins@192.168.65.210:/home/jenkins"
                 sh "ssh jenkins@192.168.65.210 sudo chmod +x ./dockerbuild.sh"
                 sh "ssh jenkins@192.168.65.210 sudo chown jenkins ./dockerbuild.sh"
-               // sh "ssh jenkins@192.168.65.210 cat Dockerfile"
-               
+                echo "-----------------------Prepare-End----------------------------"
+
+            }
+        }
+        stage('2-Docker-Build') {
+            steps {
+                echo "-----------------------Docker-Build----------------------------"
                 sh """
                 ssh jenkins@192.168.65.210 ./dockerbuild.sh
                 """
-                //  sh "ssh jenkins@192.168.65.210 sudo -E docker push pva2008/k8sphp:latest"
-                
-
-
-
+                echo "-----------------------Docker-End----------------------------"
+            }
+        }
+        stage('3-Deploy') {
+            steps {
+                echo "-----------------------Deploy----------------------------"
+ 
+                echo "-----------------------Deploy-End----------------------------"
             }
         }
         stage('4-Clean') {
             steps {
-                echo "---------------------------------------------------"
+                 echo "-----------------------Clean----------------------------"
                 sh "ssh jenkins@192.168.65.210 rm  index.php"
                 sh "ssh jenkins@192.168.65.210 rm  Dockerfile"
                 sh "ssh jenkins@192.168.65.210 rm  dockerbuild.sh"
@@ -49,6 +52,7 @@ pipeline {
                 sh "ssh jenkins@192.168.65.210  sudo docker rmi pva2008/k8sphp:latest "
                 sh "ssh jenkins@192.168.65.210  sudo docker images "
                 sh "exit"
+                echo "-----------------------Clean-End----------------------------"
             }
         }
         // stage('4-Clean') {
@@ -60,22 +64,6 @@ pipeline {
         //         echo "End of Stage Build..."
         //     }
         // }
-        // stage('3-Deploy') {
-        //     steps {
-        //         echo "Start of Stage Deploy..."
-        //         echo "Deploying......."
-        //         sh "ls -la"
-        //         sh '''
-        //            echo "Line1"
-        //            echo "Line2"
-        //         '''
-        //         echo "End of Stage Build..."
-        //     }
-        // }
-        // stage('4-Celebrate') {
-        //     steps {
-        //         echo "CONGRATULYACIYA!"
-        //     }
-        // }	
+	
     }
 }
