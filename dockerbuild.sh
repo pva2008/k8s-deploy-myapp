@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo -E docker login ;
 sudo -E  docker build \
 --build-arg http_proxy=http://172.16.10.29:8080/ \
 --build-arg https_proxy=http://172.16.10.29:8080/ \
