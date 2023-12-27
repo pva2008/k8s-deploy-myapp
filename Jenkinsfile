@@ -19,9 +19,9 @@ pipeline {
                 sh "scp -r ./chart-vasili  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
-                sh "scp ./dockerbuild.sh  jenkins@192.168.65.210:/home/jenkins"
-                sh "ssh jenkins@192.168.65.210 sudo chmod +x ./dockerbuild.sh"
-                sh "ssh jenkins@192.168.65.210 sudo chown jenkins ./dockerbuild.sh"
+                sh "scp ./dockerbuild.sh ./loadbalancer.sh  jenkins@192.168.65.210:/home/jenkins"
+                sh "ssh jenkins@192.168.65.210 sudo chmod +x ./dockerbuild.sh ./loadbalancer.sh"
+                sh "ssh jenkins@192.168.65.210 sudo chown jenkins ./dockerbuild.sh ./loadbalancer.sh"
                 echo "-----------------------Prepare-End----------------------------"
 
             }
@@ -36,10 +36,11 @@ pipeline {
         stage('3-Deploy') {
             steps {
                 echo "-----------------------Deploy----------------------------"
-                 sh "ssh jenkins@192.168.65.210 helm install app  ./chart-vasili"
-                 sh ("""
-                 ssh jenkins@192.168.65.210 kubectl patch svc app-service -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.65.205"]}}'
-                 """)
+                sh "ssh jenkins@192.168.65.210 helm install app  ./chart-vasili"
+                sh "ssh jenkins@192.168.65.210  ./loadbalancer.sh"
+                //  sh ("""
+                //  ssh jenkins@192.168.65.210 kubectl patch svc app-service -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.65.205"]}}'
+                //  """)
  
                 echo "-----------------------Deploy-End----------------------------"
             }
