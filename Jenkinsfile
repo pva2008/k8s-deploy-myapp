@@ -37,7 +37,9 @@ pipeline {
             steps {
                 echo "-----------------------Deploy----------------------------"
                  sh "ssh jenkins@192.168.65.210 helm install app  ./chart-vasili"
-                 sh 'ssh jenkins@192.168.65.210 kubectl patch svc app-service -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.65.205"]}}''
+                 sh """
+                 ssh jenkins@192.168.65.210 kubectl patch svc app-service -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.65.205"]}}'
+                 """
  
                 echo "-----------------------Deploy-End----------------------------"
             }
