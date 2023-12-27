@@ -30,7 +30,7 @@ pipeline {
             steps {
                 echo "-----------------------Docker-Build----------------------------"
                 sh """
-                ssh jenkins@192.168.65.210 sudo -E ./dockerbuild.sh
+                ssh jenkins@192.168.65.210  ./dockerbuild.sh
                 """
                 echo "-----------------------Docker-End----------------------------"
             }
