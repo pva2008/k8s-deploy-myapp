@@ -30,7 +30,7 @@ pipeline {
                // sh "ssh jenkins@192.168.65.210 cat Dockerfile"
                
                 sh """
-                ssh jenkins@192.168.65.210 sudo ./dockerbuild.sh
+                ssh jenkins@192.168.65.210 ./dockerbuild.sh
                 """
                 //  sh "ssh jenkins@192.168.65.210 sudo -E docker push pva2008/k8sphp:latest"
                 
