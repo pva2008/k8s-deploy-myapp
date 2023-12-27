@@ -16,7 +16,7 @@ pipeline {
                 // sh "ssh jenkins@192.168.65.210 export HTTPS_PROXY=http://172.16.10.29:8080/ "
                 // sh "ssh jenkins@192.168.65.210 export NO_PROXY=localhost,127.0.0.1,0.0.0.0,10.0.0.0/8,172.16.10.0/24,192.168.155.0/24,192.168.65.0/24 "
 
-                sh "scp ./chart-vasili  jenkins@192.168.65.210:/home/jenkins"
+                sh "scp -r ./chart-vasili  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./index.php  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./Dockerfile  jenkins@192.168.65.210:/home/jenkins"
                 sh "scp ./dockerbuild.sh  jenkins@192.168.65.210:/home/jenkins"
