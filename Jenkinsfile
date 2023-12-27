@@ -38,6 +38,7 @@ pipeline {
         stage('3-Deploy') {
             steps {
                 echo "-----------------------Deploy----------------------------"
+                 sh "ssh jenkins@192.168.65.210 helm install app  ./chart-vasili"
  
                 echo "-----------------------Deploy-End----------------------------"
             }
