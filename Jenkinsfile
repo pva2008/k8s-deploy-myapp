@@ -22,7 +22,7 @@ pipeline {
         stage('2-Docker-Build') {
             steps {
                 echo "-----------------------Docker-Build----------------------------"
-                 sh "ssh jenkins@192.168.65.210 sudo -E /home/jenkins/dockerbuild.sh"
+                 sh "ssh jenkins@192.168.65.210 sudo  /home/jenkins/dockerbuild.sh"
                 echo "-----------------------Docker-End----------------------------"
             }
         }
