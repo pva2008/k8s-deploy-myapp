@@ -2,9 +2,10 @@
 
 
 echo "======================================================";
-sudo -E printenv;
+
+#//sudo -E printenv;
 echo "======================================================";
-sudo -E docker info;
+#sudo -E docker info;
 echo "======================================================";
 
 sudo  docker build -t pva2008/k8sphp:latest . ;
