@@ -41,11 +41,11 @@ pipeline {
         stage('4-Clean') {
             steps {
                  echo "-----------------------Clean----------------------------"
-                //sh "ssh jenkins@192.168.65.210 rm  index.php"
-               // sh "ssh jenkins@192.168.65.210 rm  Dockerfile"
-               // sh "ssh jenkins@192.168.65.210 rm  dockerbuild.sh"
+                sh "ssh jenkins@192.168.65.210 rm  index.php"
+                sh "ssh jenkins@192.168.65.210 rm  Dockerfile"
+                sh "ssh jenkins@192.168.65.210 rm  dockerbuild.sh"
                 sh "ssh jenkins@192.168.65.210  ls -a "
-               // sh "ssh jenkins@192.168.65.210  sudo docker rmi pva2008/k8sphp:latest "
+                sh "ssh jenkins@192.168.65.210  sudo docker rmi pva2008/k8sphp:latest "
                 sh "ssh jenkins@192.168.65.210  sudo docker images "
                 sh "exit"
                 echo "-----------------------Clean-End----------------------------"
